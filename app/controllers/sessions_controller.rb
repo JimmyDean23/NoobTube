@@ -6,14 +6,15 @@ class SessionsController < ApplicationController
   	user = User.find_by_name(params[:name])
   	if user and user.authenticate(params[:password])
   		session[:user_id] = user.id
-  		redirect_to admin_url
+  		redirect_to users_url, :notice => "Logged in"
   	else
-  		redirect_to login_url, alert: "Invalid N00b/password combination"
+  		redirect_to log_in_url, alert: "Invalid N00b/password combination"
+      render "new"
   	end
   end
 
   def destroy
   	session[:user_id] = nil
-  	redirect_to login_url, notice: "Logged out"
+  	redirect_to log_in_url, notice: "Logged out"
   end
 end
